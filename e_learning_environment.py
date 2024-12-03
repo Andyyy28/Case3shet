@@ -248,13 +248,13 @@ class E_Learning_Environment:
         else:
             print("Course not found.")
 
-    def input_grades(self, instructor):
+def input_grades(self, instructor):
         # Get the course code and find the corresponding course taught by the instructor
         course_code = input("Enter the course code: ")
         course = next(
             (c for c in self.platform_admin.courses if c.course_code == course_code and c.instructor == instructor),
-        None
-    )
+            None
+        )
 
         if course:
             # Proceed to input grades for the students in this course
@@ -266,11 +266,14 @@ class E_Learning_Environment:
             if student:
                 student.add_grade(course, grade)  # Assuming there's a method to add grades to the student
                 print(f"Grade for student {student.name} in course {course.course_name} is {grade}.")
+                
+                # Now call view_student_grades to show the updated grades
+                self.view_student_grades(student)  # Pass the student object to display their grades
             else:
                 print(f"Student with ID {student_id} is not enrolled in this course.")
         else:
             print(f"Course with code {course_code} not found.")
-
+            
     def view_enrolled_students(self, instructor):
         """Display a list of students enrolled in the courses taught by the instructor."""
         print("\nCourses Taught:")
