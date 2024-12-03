@@ -117,11 +117,17 @@ class E_Learning_Environment:
         print(f"\nGrades for {student.name}:")
         found_grades = False
 
-        for enrollment in self.platform_admin.enrollments._enrollments:
+        # Check the student's own grades
+        for grade_info in student.grades:
+            found_grades = True
+            print(f"Course: {grade_info['course_name']} (Code: {grade_info['course_code']}), Grade: {grade_info['grade']}")
+
+        # Alternatively, check enrollments if needed
+        for enrollment in self.enrollments:
             if enrollment.get('student_id') == student.student_id:
                 found_grades = True
-                print(f"Course: {enrollment['course_name']}, Grade: {enrollment.get('grade', 'N/A')}")
-        
+                print(f"Course: {enrollment['course_name']} (Code: {enrollment['course_code']}), Grade: {enrollment.get('grade', 'N/A')}")
+
         if not found_grades:
             print("No grades found.")
 
